@@ -3,6 +3,7 @@ package com.ejercicio.transaccion.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "transacciones")
 public class Transaccion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
