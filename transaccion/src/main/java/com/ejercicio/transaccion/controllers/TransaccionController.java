@@ -1,7 +1,7 @@
 package com.ejercicio.transaccion.controllers;
 
+import com.ejercicio.transaccion.dtos.TransaccionDTO;
 import com.ejercicio.transaccion.interfaces.TransaccionService;
-import com.ejercicio.transaccion.model.Transaccion;
 import com.ejercicio.transaccion.services.TransaccionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class TransaccionController {
 
   @Autowired
-  private TransaccionService transaccionService;
-  @Autowired
   private TransaccionServiceImpl transaccionServiceImpl;
 
   @GetMapping("/")
@@ -27,9 +25,9 @@ public class TransaccionController {
   //Controller para cambiar el estado
   @PostMapping("/transaccion/{id}/cambiarEstado")
   public String cambiarEstado(@PathVariable Long id, Model model){
-    Transaccion transaccion = transaccionServiceImpl.getAllTransaccionesById(id).orElse(null);
-    if(transaccion != null){
-      transaccionServiceImpl.updateEstado(id, !transaccion.isEstado());
+    TransaccionDTO transaccionDTO = transaccionServiceImpl.getTransaccionById(id).orElse(null);
+    if(transaccionDTO != null){
+      transaccionServiceImpl.updateEstado(id, !transaccionDTO.isEstado());
     }
     return "redirect:/";
   }
